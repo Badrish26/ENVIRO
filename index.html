@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Idea Bot - Innovate Green</title>
+    <link rel="stylesheet" href="form.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* New styles for the generate idea button inside the form section */
+        .generate-idea-in-section {
+            padding: 20px 40px; /* Larger button */
+            font-size: 2em; /* Bigger font */
+            font-weight: 700;
+            background-color: #4CAF50; /* Green color to match aesthetic */
+            color: white;
+            border: none;
+            border-radius: 50px; /* Pill shape */
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+            transition: all 0.3s ease; /* Smooth transitions for hover effects */
+            position: relative;
+            overflow: hidden;
+            z-index: 1; /* Ensure button is above any background effects */
+            margin-top: 30px; /* Space from the paragraph above */
+        }
+
+        .generate-idea-in-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.15); /* Light overlay for ripple effect */
+            border-radius: 50%;
+            transition: all 0.75s ease-out;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            z-index: -1;
+        }
+
+        .generate-idea-in-section:hover {
+            background-color: #45a049; /* Darker green on hover */
+            transform: translateY(-3px); /* Slight lift effect */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+        }
+
+        .generate-idea-in-section:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Adjustments for the form-container text for black & green aesthetic */
+        .form-container p {
+            color: #e0e0e0; /* Light text for readability on dark background */
+        }
+        .form-container a {
+            color: #4CAF50; /* Green link color */
+            font-weight: bold;
+        }
+
+        /* --- New/Modified styles for centering Hero Section --- */
+        .hero-section {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            text-align: center;      /* Center text within hero-text */
+            padding-top: 0; /* Remove top padding for full vertical centering */
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center;     /* Center content horizontally within hero-content */
+            justify-content: center; /* Center content vertically */
+            width: 90%;
+            max-width: 800px; /* Adjust max-width for better centering look */
+            text-align: center; /* Ensure text within hero-text is centered */
+        }
+
+        .hero-text {
+            max-width: 100%; /* Allow hero-text to take full width of its parent */
+            text-align: center; /* Ensure text is centered */
+        }
+
+        /* Remove padding for social icons and bottom bar as they are removed */
+        .hero-section .social-icons,
+        .hero-section .hero-bottom-bar {
+            display: none; /* Hide these elements */
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">ENVIRO</div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chatbot.html">Service</a></li>
+                <li><a href="info.html">Collection</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <span class="search-icon">🔍</span>
+            <span class="search-text">Search</span>
+        </div>
+    </header>
+
+    <section class="hero-section" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>A Great <br> Idea is a Seed.</h1>
+                <p>Enviro can help you generate that seed and plant it in your environment, so that you can grow and become the biggest and strongest Tree of them all.</p>
+                <button class="learn-more-button">Learn More</button>
+            </div>
+        </div>
+        </section>
+
+    <section class="scrollable-section form-section-bg" id="services" data-animated-section>
+        <div class="section-overlay"></div>
+        <div class="form-container welcome-form-container">
+            <div class="form-header">
+                <h2>Generate Your Startup Idea</h2>
+                <p>Click below to use our powerful AI to generate innovative startup concepts!</p>
+            </div>
+            <div style="text-align: center; padding: 20px;">
+                <button class="generate-idea-in-section" id="generateIdeaButton">Generate My Idea Now!</button>
+            </div>
+            <p class="footer-text">Your journey to a successful startup begins here.</p>
+        </div>
+    </section>
+
+    <script src="form.js"></script>
+    <script>
+        // Smooth scrolling for internal navigation links (e.g., Learn More button)
+        // This only applies if you have #anchors that scroll within index.html
+        document.querySelectorAll('nav.main-nav ul li a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // "Learn More" button functionality (NOW GOES TO info.html)
+        document.querySelector('.learn-more-button').addEventListener('click', function() {
+            window.location.href = 'info.html'; // Changed to go to info.html
+        });
+
+        // "Generate My Idea Now!" button in the services section (NOW GOES TO info.html)
+        document.getElementById('generateIdeaButton').addEventListener('click', function() {
+            window.location.href = 'info.html'; // Changed to go to info.html
+        });
+
+        // Intersection Observer for scroll animations
+        const animatedSections = document.querySelectorAll('[data-animated-section]');
+
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.2 // Trigger when 20% of the section is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-in-view');
+                    // observer.unobserve(entry.target); // Uncomment if animation should only happen once
+                } else {
+                    // entry.target.classList.remove('is-in-view'); // Uncomment to re-animate on scroll back
+                }
+            });
+        }, observerOptions);
+
+        animatedSections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Original chatbot JS is removed from index.html as it will now live on chatbot.html
+    </script>
+</body>
+</html>

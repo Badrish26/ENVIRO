@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviro Bot - Your Green Idea Generator</title>
+    <link rel="stylesheet" href="form.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Your existing CSS here, copied from previous steps */
+
+        /* Specific styles for chatbot.html to make it full-page and animated */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            background-color: #1a1a1a; /* Dark background */
+            color: #e0e0e0; /* Light text */
+        }
+
+        .main-header {
+            position: relative; /* Change to relative or remove fixed for full page layout */
+            margin-bottom: 20px; /* Add some space below header */
+        }
+
+        .chatbot-container {
+            flex-grow: 1; /* Allows the container to take up remaining space */
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            max-width: 900px; /* Wider chatbot for better UI */
+            margin: 20px auto; /* Center the chatbot container with margin */
+            background-color: #222; /* Slightly lighter dark background for the container */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.5); /* Prominent green glow */
+            overflow: hidden; /* Important for border-radius */
+            border: 1px solid #4CAF50; /* Green border */
+        }
+
+        .chat-header {
+            background-color: #333; /* Darker header for chat */
+            color: #4CAF50; /* Green text */
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 700;
+            border-bottom: 1px solid #4CAF50; /* Green border bottom */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .chat-header i {
+            font-size: 1.2em; /* Icon size */
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #1f1f1f; /* Dark background for message area */
+            display: flex; /* Use flexbox for messages */
+            flex-direction: column; /* Stack messages vertically */
+        }
+
+        .chat-message {
+            margin-bottom: 15px; /* More space between messages */
+            padding: 12px 18px; /* Larger padding */
+            border-radius: 20px; /* More rounded corners */
+            max-width: 75%; /* Slightly smaller max width */
+            word-wrap: break-word;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-out forwards; /* Fade in animation */
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(10px); /* Start slightly below for animation */
+        }
+
+        .chat-message:last-child {
+            margin-bottom: 0; /* No margin for the last message */
+        }
+
+        .user-message {
+            background-color: #4a4a4a; /* Darker gray for user messages */
+            color: #e0e0e0;
+            align-self: flex-end; /* Align user messages to the right */
+            margin-left: auto;
+            border-bottom-right-radius: 5px; /* Subtle tail */
+            animation: slideInRight 0.5s ease-out forwards;
+        }
+
+        .bot-message {
+            background-color: #4CAF50; /* Green for bot messages */
+            color: #fff;
+            align-self: flex-start; /* Align bot messages to the left */
+            margin-right: auto;
+            border-bottom-left-radius: 5px; /* Subtle tail */
+            animation: slideInLeft 0.5s ease-out forwards;
+        }
+
+        .bot-message.error {
+            background-color: #d32f2f; /* Red for errors */
+            color: #fff;
+        }
+
+        .chat-message p {
+            margin: 0;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 15px 20px; /* Larger padding */
+            border-top: 1px solid #4CAF50;
+            background-color: #333; /* Dark background */
+            gap: 10px; /* Space between input and button */
+        }
+
+        .chat-input-area input {
+            flex-grow: 1;
+            border: 1px solid #555;
+            background-color: #222; /* Darker input field */
+            color: #e0e0e0;
+            border-radius: 25px; /* More rounded pill shape */
+            padding: 12px 20px;
+            font-size: 1.1em; /* Slightly larger font */
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chat-input-area input:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+        }
+
+        .chat-input-area button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px; /* Matching pill shape */
+            padding: 12px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-input-area button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .typing-indicator {
+            display: none; /* Hide by default, will be shown by JS */
+            align-items: center;
+            justify-content: center;
+            background-color: #3a3a3a; /* Dark background */
+            color: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 15px;
+            width: fit-content;
+            margin-top: 10px; /* Space from input area */
+            margin-bottom: 15px; /* Space from next message or end of chat */
+            align-self: flex-start; /* Align left */
+            opacity: 0; /* Start hidden by default */
+            animation: none; /* No initial animation, controlled by JS class */
+        }
+
+        .typing-indicator.is-typing {
+            display: flex; /* Make visible when active */
+            opacity: 1; /* Make visible when active */
+            animation: pulse 1.5s infinite ease-in-out; /* Apply animation when active */
+        }
+
+        .typing-indicator span {
+            font-size: 1.1em;
+            margin-right: 8px;
+        }
+
+        .typing-indicator .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50; /* Green dots */
+            border-radius: 50%;
+            margin: 0 3px;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator .dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-7px); }
+        }
+
+        /* Responsive Adjustments for Chatbot Page */
+        @media (max-width: 768px) {
+            .chatbot-container {
+                width: 95%;
+                margin: 15px auto;
+            }
+            .chat-header {
+                font-size: 1.5em;
+                padding: 15px;
+            }
+            .chat-messages {
+                padding: 15px;
+            }
+            .chat-message {
+                padding: 10px 15px;
+                font-size: 0.95em;
+            }
+            .chat-input-area {
+                padding: 10px 15px;
+                flex-direction: column; /* Stack input and button on small screens */
+                gap: 8px;
+            }
+            .chat-input-area input,
+            .chat-input-area button {
+                width: 100%; /* Full width for stacked elements */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chat-header {
+                font-size: 1.3em;
+            }
+            .chat-input-area input {
+                font-size: 0.9em;
+            }
+            .chat-input-area button {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">ENVIRO</div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="chatbot.html">Service</a></li>
+                <li><a href="info.html">Collection</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <span class="search-icon">🔍</span>
+            <span class="search-text">Search</span>
+        </div>
+    </header>
+
+    <div class="chatbot-container">
+        <div class="chat-header">
+            <i class="fas fa-robot"></i> Enviro Bot
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            </div>
+        <div class="typing-indicator" id="typing-indicator">
+            <span>Bot is typing</span>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button">
+                <i class="fas fa-paper-plane"></i> Send
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        // IMPORTANT: Replace this with your actual backend URL
+        const BACKEND_URL = 'http://localhost:3000/chat';
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', `${type}-message`);
+            // Use marked.parse for all messages to allow consistent formatting from bot
+            // This was missing in your last version, causing potential display issues
+            messageDiv.innerHTML = `<p>${marked.parse(message)}</p>`;
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        async function getBotResponse(userMessage) {
+            typingIndicator.classList.add('is-typing');
+            scrollToBottom();
+
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessage }),
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Server error: ${response.status} - ${errorText}`);
+                }
+
+                const data = await response.json();
+                addMessage(data.reply, 'bot'); // Assuming your backend sends a 'reply' field
+
+            } catch (error) {
+                console.error("Error fetching bot response:", error);
+                addMessage(`Oops! I'm having trouble connecting right now. Please check if the server is running. (${error.message})`, 'bot error');
+            } finally {
+                typingIndicator.classList.remove('is-typing');
+                scrollToBottom();
+            }
+        }
+
+        // --- Logic for Initial Bot Response using sessionStorage ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load marked.js dynamically if not already loaded (for Markdown parsing)
+            // This was missing in your last version, causing marked.parse to fail
+            if (typeof marked === 'undefined') {
+                const script = document.createElement('script');
+                script.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js";
+                script.onload = () => {
+                    initializeChatbot();
+                };
+                document.head.appendChild(script);
+            } else {
+                initializeChatbot();
+            }
+
+            function initializeChatbot() {
+                // Retrieve data from sessionStorage
+                const userName = sessionStorage.getItem('userName') || 'there'; // Use 'there' as a fallback
+                const domain = sessionStorage.getItem('userDomain');
+                const problem = sessionStorage.getItem('userProblem');
+                const targetAudience = sessionStorage.getItem('userTargetAudience');
+                const skills = sessionStorage.getItem('userSkills');
+
+                let initialPromptForBot = ""; // This is the message sent to your backend
+                let welcomeMessageForUser = `Hello, ${userName}! I'm Enviro Bot, your partner in green innovation. `;
+
+                // Construct the initial prompt to send to the backend
+                initialPromptForBot += `You are a seasoned startup founder and a sustainability expert. Your goal is to generate innovative, practical, and impactful startup ideas focused on environmental sustainability. Think like an entrepreneur identifying market gaps and green solutions.
+
+Please generate a startup idea tailored to the following criteria:
+`;
+
+                if (domain) {
+                    initialPromptForBot += `- **Industry/Domain:** ${domain}\n`;
+                    welcomeMessageForUser += `You've indicated an interest in the **${domain}** industry. `;
+                }
+                if (problem) {
+                    initialPromptForBot += `- **Problem to Solve:** "${problem}"\n`;
+                    welcomeMessageForUser += `You're keen on solving the problem of "**${problem}**". `;
+                }
+                if (targetAudience) {
+                    initialPromptForBot += `- **Target Audience:** ${targetAudience}\n`;
+                    welcomeMessageForUser += `Your target audience is **${targetAudience}**. `;
+                }
+                if (skills) {
+                    initialPromptForBot += `- **Leverage these skills/resources (if applicable):** ${skills}\n`;
+                    welcomeMessageForUser += `You also mentioned having skills/resources in **${skills}**. `;
+                }
+
+                initialPromptForBot += `
+For the idea, please provide the following structured details:
+1.  **Idea Name:** (A catchy, memorable name)
+2.  **Core Problem:** (Clearly articulate the environmental problem being solved)
+3.  **The Solution:** (Describe the product/service and how it addresses the problem)
+4.  **Target Audience:** (Who specifically benefits from this solution)
+5.  **Innovation & Differentiator:** (What makes this idea unique or better than existing solutions, often leveraging technology)
+6.  **Sustainability Impact:** (Quantifiable or qualitative environmental benefits)
+7.  **Potential Revenue Streams:** (How the business would generate income)
+8.  **Key Resources/Skills Needed:** (What might be required to build this)
+9.  **Next Steps/Considerations:** (Actionable early steps or challenges to think about)
+
+Ensure the idea is:
+- Highly innovative and forward-thinking.
+- Environmentally impactful and genuinely sustainable.
+- Scalable and has clear business potential.
+- Practical and actionable.
+`;
+                if (domain || problem || targetAudience || skills) {
+                    welcomeMessageForUser += "Here's an initial idea based on your input. Feel free to ask for more details or refinements!";
+                } else {
+                    welcomeMessageForUser += "Tell me what kind of sustainable startup idea you're looking for today, or provide some details for a tailored suggestion!";
+                }
+
+                // Display the user-friendly welcome message from the bot as the first message
+                addMessage(welcomeMessageForUser, 'bot');
+
+                // IF there's any specific form data, send a detailed prompt to the backend
+                // to get the first actual idea.
+                if (domain || problem || targetAudience || skills) {
+                    getBotResponse(initialPromptForBot);
+                }
+            }
+        });
+
+        sendButton.addEventListener('click', () => {
+            const userMessage = userInput.value.trim();
+            if (userMessage) {
+                addMessage(userMessage, 'user');
+                userInput.value = '';
+                getBotResponse(userMessage);
+            }
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+
+        scrollToBottom();
+
+    </script>
+</body>
+</html>

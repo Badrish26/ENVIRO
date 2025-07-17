@@ -1,0 +1,593 @@
+/* Basic Resets & Global Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #1a1a1a; /* Dark background */
+    color: #e0e0e0; /* Light text for contrast */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header Styling */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker, slightly transparent header */
+    color: #e0e0e0; /* Light text */
+    z-index: 1000;
+    backdrop-filter: blur(8px); /* Slightly more blur */
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(76, 175, 80, 0.3); /* Green border bottom */
+}
+
+.main-header .logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #4CAF50; /* Green logo */
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav ul li a {
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    color: #e0e0e0; /* Light text */
+}
+
+.main-nav ul li a:hover {
+    color: #4CAF50; /* Green on hover */
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    color: #e0e0e0;
+}
+.header-right .search-icon {
+    color: #4CAF50; /* Green search icon */
+}
+
+
+/* Hero Section Styling */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('pexels-veeterzy-38136.jpg'); /* Your background image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    text-align: left;
+    padding-top: 80px;
+    box-sizing: border-box;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 1.2em;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(76, 175, 80, 0.3); /* Greenish transparent background */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    color: #fff; /* White icons */
+}
+
+.social-icon:hover {
+    background-color: rgba(76, 175, 80, 0.6); /* Darker green on hover */
+}
+
+.hero-text {
+    max-width: 600px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.hero-text h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    color: #4CAF50; /* Green heading */
+}
+
+.hero-text p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    color: #e0e0e0; /* Light text */
+}
+
+.learn-more-button {
+    background-color: #4CAF50; /* Green button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 35px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.learn-more-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: translateY(-2px);
+}
+
+/* Hero Bottom Bar Styling */
+.hero-bottom-bar {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid rgba(76, 175, 80, 0.3); /* Greenish border */
+    gap: 20px;
+    flex-wrap: wrap;
+    color: #e0e0e0; /* Light text */
+}
+
+.hero-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Added transform */
+    min-width: 100px;
+    text-align: center;
+    flex: 1;
+    max-width: 150px;
+}
+
+.hero-card:hover {
+    opacity: 0.9;
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.hero-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #4CAF50; /* Green border for thumbnails */
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); /* Green glow effect */
+}
+
+.hero-card span {
+    font-size: 0.9em;
+    font-weight: 600;
+    opacity: 0.9;
+    color: #e0e0e0; /* Light text */
+}
+
+.play-video {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    color: #e0e0e0; /* Light text */
+}
+
+.play-video:hover {
+    opacity: 0.7;
+}
+
+.play-video .play-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #4CAF50; /* Green play icon background */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    padding-left: 3px;
+    color: #fff; /* White play icon */
+}
+
+/* Scrollable Sections Styling */
+.scrollable-section {
+    position: relative;
+    min-height: 80vh;
+    padding: 80px 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.scrollable-section.is-in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Background image for the form section */
+.form-section-bg {
+    background-image: url('pexels-veeterzy-38136.jpg'); /* Use your background image for this section */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e0e0e0; /* Light text for better contrast on a dark background */
+}
+
+/* Overlay for readability on background images */
+.section-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Even darker overlay */
+    z-index: 0;
+}
+
+/* Ensure content is above the overlay */
+.scrollable-section > *:not(.section-overlay) {
+    position: relative;
+    z-index: 1;
+}
+
+.scrollable-section:nth-of-type(odd) {
+    background-color: #222; /* Darker background for odd sections */
+    color: #e0e0e0;
+}
+
+.content-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #4CAF50; /* Green heading */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content-section p {
+    font-size: 1.1em;
+    max-width: 800px;
+    line-height: 1.6;
+    color: #e0e0e0; /* Light text */
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Form Container Styling */
+.form-container {
+    background-color: rgba(25, 25, 25, 0.95); /* Very dark, slightly transparent background for the form */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4); /* Green glowing shadow */
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #4CAF50; /* Green border */
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #e0e0e0; /* Light text */
+}
+
+.form-header h2 {
+    margin: 0 0 10px 0;
+    font-size: 2em;
+    font-family: 'Montserrat', sans-serif;
+    color: #4CAF50; /* Green heading */
+}
+
+.form-header p {
+    color: #a0a0a0; /* Slightly lighter gray */
+    font-size: 1.1em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #4CAF50; /* Green label */
+    font-family: 'Open Sans', sans-serif;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #333; /* Darker border */
+    background-color: #2a2a2a; /* Dark input background */
+    color: #e0e0e0; /* Light input text */
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="email"]:focus,
+.input-group textarea:focus {
+    border-color: #4CAF50; /* Green focus border */
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* Green glow on focus */
+}
+
+.next-button {
+    background-color: #4CAF50; /* Green button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+    font-weight: 600;
+}
+
+.next-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.footer-text {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #a0a0a0; /* Lighter gray for footer text */
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Chat Interface Styling (Adjusted for Black/Green) */
+.chat-interface {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    border: 1px solid #4CAF50; /* Green border */
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #333; /* Darker background for chat box */
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #2a2a2a; /* Even darker background for messages area */
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 80%;
+    word-wrap: break-word;
+    line-height: 1.5;
+    color: #e0e0e0; /* Light text for messages */
+}
+
+.user-message {
+    background-color: #4a4a4a; /* Darker gray for user messages */
+    color: #e0e0e0;
+    align-self: flex-end;
+    margin-left: auto;
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message {
+    background-color: #4CAF50; /* Green for bot messages */
+    color: #fff;
+    align-self: flex-start;
+    margin-right: auto;
+    border-bottom-left-radius: 2px;
+}
+
+.bot-message.error {
+    background-color: #d32f2f; /* Red for errors */
+    color: #fff;
+}
+
+.chat-message p {
+    margin: 0;
+}
+
+.chat-input-area {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid #4CAF50; /* Green border top */
+    background-color: #3a3a3a; /* Dark background for input area */
+}
+
+.chat-input-area input {
+    flex-grow: 1;
+    border: 1px solid #555; /* Darker border */
+    background-color: #222; /* Very dark input background */
+    color: #e0e0e0; /* Light input text */
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 1em;
+    margin-right: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.chat-input-area input:focus {
+    border-color: #4CAF50; /* Green focus like other inputs */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.7); /* Green glow on focus */
+}
+
+.chat-input-area button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-input-area button:hover {
+    background-color: #45a049;
+}
+
+/* Ensure form-container and its contents are relatively positioned to z-index above overlay */
+.form-container.welcome-form-container {
+    position: relative;
+    z-index: 1;
+    /* The background color was already defined above for .form-container */
+    /* background-color: rgba(25, 25, 25, 0.95); */ /* This line moved up for consistency */
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.796); /* Green glowing shadow */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+    .main-header {
+        flex-direction: column;
+        padding: 15px 5%;
+        text-align: center;
+    }
+    .main-nav ul {
+        margin-top: 15px;
+        gap: 20px;
+    }
+    .header-right {
+        margin-top: 15px;
+    }
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    .social-icons {
+        flex-direction: row;
+    }
+    .hero-text h1 {
+        font-size: 3em;
+    }
+    .hero-text p {
+        font-size: 1.1em;
+    }
+    .learn-more-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .hero-bottom-bar {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .hero-card {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .hero-text h1 {
+        font-size: 2.2em;
+    }
+    .hero-text p {
+        font-size: 1em;
+    }
+    .learn-more-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .form-header h2 {
+        font-size: 1.8em;
+    }
+    .create-ideas-button { /* Adjust for smaller screens */
+        font-size: 1.5em;
+        padding: 15px 30px;
+    }
+}
