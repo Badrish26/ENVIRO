@@ -40,21 +40,3 @@ The chatbot.html is the central interactive component, featuring:
 A modern, dark-themed design with vibrant green accents.
 
 Smooth animations for messages (fade-in, slide-in) and a dynamic "typing indicator" for a more engaging user experience.
-
-Client-side JavaScript that parses the AI's plain text responses, converting simple markdown-like syntax (like **bold** and - bullet points) into structured HTML (<strong>, <ul>, <ol>, <li>), ensuring the AI's formatted output is displayed as intended.
-
-Responsive design for accessibility across various devices.
-
-Technology Stack:
-
-Frontend: HTML, CSS, JavaScript
-
-Backend: Node.js, Express.js
-
-AI Model: Google Gemini (specifically gemini-1.5-flash for speed)
-
-Dependencies: dotenv, cors, @google/generative-ai
-
-Purpose & Impact:
-
-Enviro Bot aims to lower the barrier to entry for environmental entrepreneurship by providing an accessible and intelligent brainstorming partner. It leverages AI to transform abstract sustainability goals into concrete, actionable startup concepts, fostering innovation in the critical field of environmental solutions.
